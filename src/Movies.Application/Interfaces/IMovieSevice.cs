@@ -1,10 +1,11 @@
 using Movies.Application.Common;
 using Movies.Application.Responses.Movies;
 
-namespace Movies.Application.Interfaces;
-
-public interface IMovieSevice
+namespace Movies.Application.Interfaces
 {
-    Task<PagedResult<MovieSearchResponse>> GetMoviesAsync(MovieSearchRequest request, CancellationToken cancellationToken);
-    Task<MovieSearchResponse?> GetMovieByIdAsync(Guid id, CancellationToken cancellationToken);
+    public interface IMovieSevice
+    {
+        Task<PagedResult<MovieSearchResponse>> GetMoviesAsync(MovieSearchRequest request, CancellationToken cancellationToken);
+        Task<MovieSearchResponse?> GetMovieByIdAsync(Guid id, CancellationToken cancellationToken);
+    }
 }

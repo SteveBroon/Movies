@@ -1,21 +1,17 @@
 using Movies.Application.Interfaces;
 using Movies.Application.Responses.Genres;
 
-namespace Movies.Application.Services;
-
-public class GenreService : IGenreSevice
+namespace Movies.Application.Services
 {
-    public IGenreRepository GenreRepository { get; }
-
-    public GenreService(IGenreRepository genreRepository)
+    public class GenreService(IGenreRepository genreRepository) : IGenreSevice
     {
-        GenreRepository = genreRepository;
-    }
+        public IGenreRepository GenreRepository { get; } = genreRepository;
 
-    public async Task<IReadOnlyCollection<GenreResonse>> GetGenresAsync(CancellationToken cancellationToken)
-    {
-        var genres = await GenreRepository.GetGenresAsync(cancellationToken).ConfigureAwait(false);
+        public async Task<IReadOnlyCollection<GenreResonse>> GetGenresAsync(CancellationToken cancellationToken)
+        {
+            var genres = await GenreRepository.GetGenresAsync(cancellationToken).ConfigureAwait(false);
 
-        return genres.Select(genre => GenreResonse.FromEntity(genre)).ToList();
+            return genres.Select(genre => GenreResonse.FromEntity(genre)).ToList();
+        }
     }
 }

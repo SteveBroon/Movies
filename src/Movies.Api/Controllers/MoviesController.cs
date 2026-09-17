@@ -1,42 +1,36 @@
 using Microsoft.AspNetCore.Mvc;
 using Movies.Application.Interfaces;
 
-namespace Movies.Api.Controllers;
-
-[ApiController]
-[Route("[controller]")]
-public class MoviesController : ControllerBase
+namespace Movies.Api.Controllers
 {
-    private readonly IMovieSevice _movieService;
-
-    public MoviesController(IMovieSevice movieService)
+    [ApiController]
+    [Route("[controller]")]
+    public class MoviesController(IMovieSevice movieService) : ControllerBase
     {
-        _movieService = movieService;
-    }
+        [HttpGet]
+        public async Task<ActionResult> GetMovies(
+            [FromQuery] MovieSearchRequest request,
+            CancellationToken cancellationToken)
+        {
+            var movies = await movieService.GetMoviesAsync(
+                request,
+                cancellationToken);
 
-    [HttpGet]
-    public async Task<ActionResult> GetMovies(
-        [FromQuery] MovieSearchRequest request,
-        CancellationToken cancellationToken)
-    {
-        var movies = await _movieService.GetMoviesAsync(
-            request,
-            cancellationToken);
+            return Ok(movies);
+        }
 
-        return Ok(movies);
-    }
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult> GetMovie(
+            Guid id,
+            CancellationToken cancellationToken)
+        {
+            var item = await movieService.GetMovieByIdAsync(
+                id,
+                cancellationToken);
 
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult> GetMovie(
-        Guid id,
-        CancellationToken cancellationToken)
-    {
-        var item = await _movieService.GetMovieByIdAsync(
-            id,
-            cancellationToken);
-
-        return item is null
-            ? NotFound()
-            : Ok(item);
+            return item is null
+                ? NotFound()
+                : Ok(item);
+        }
     }
 }

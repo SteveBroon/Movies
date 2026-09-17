@@ -1,8 +1,9 @@
 using Movies.Application.Responses.Genres;
 
-namespace Movies.Application.Interfaces;
-
-public interface IGenreSevice
+namespace Movies.Application.Interfaces
 {
-    Task<IReadOnlyCollection<GenreResonse>> GetGenresAsync(CancellationToken cancellationToken);
+    public interface IGenreSevice
+    {
+        Task<IReadOnlyCollection<GenreResonse>> GetGenresAsync(CancellationToken cancellationToken);
+    }
 }

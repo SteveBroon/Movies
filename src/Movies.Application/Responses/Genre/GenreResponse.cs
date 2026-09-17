@@ -1,18 +1,19 @@
 using Movies.Domain.Entities;
 
-namespace Movies.Application.Responses.Genres;
-
-public record GenreResonse
-(
-    int Id,
-    string Name
-)
+namespace Movies.Application.Responses.Genres
 {
-    public static GenreResonse FromEntity(Genre genre)
+    public record GenreResonse
+    (
+        int Id,
+        string Name
+    )
     {
-        return new GenreResonse(
-            genre.Id,
-            genre.Name
-        );
+        public static GenreResonse FromEntity(Genre genre)
+        {
+            return new GenreResonse(
+                genre.Id,
+                genre.Name
+            );
+        }
     }
 }

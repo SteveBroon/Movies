@@ -2,16 +2,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Movies.Application.Interfaces;
 using Movies.Application.Services;
 
-namespace Movies.Infrastructure;
-
-public static class DependecyInjection
+namespace Movies.Infrastructure
 {
-    public static IServiceCollection AddServices(
-        this IServiceCollection services)
+    public static class DependecyInjection
     {
-        services.AddScoped<IMovieSevice, MovieService>();
-        services.AddScoped<IGenreSevice, GenreService>();
+        public static IServiceCollection AddServices(
+            this IServiceCollection services)
+        {
+            services.AddScoped<IMovieSevice, MovieService>();
+            services.AddScoped<IGenreSevice, GenreService>();
 
-        return services;
+            return services;
+        }
     }
 }

@@ -4,24 +4,25 @@ using Microsoft.Extensions.DependencyInjection;
 using Movies.Application.Interfaces;
 using Movies.Infrastructure.Persistence;
 
-namespace Movies.Infrastructure;
-
-public static class DependecyInjection
+namespace Movies.Infrastructure
 {
-    public static IServiceCollection AddInfrastructure(
-        this IServiceCollection services,
-        IConfiguration configuration)
+    public static class DependecyInjection
     {
-        services.AddDbContext<ApplicationDbContext>(options =>
+        public static IServiceCollection AddInfrastructure(
+            this IServiceCollection services,
+            IConfiguration configuration)
         {
-            options.UseSqlServer(
-                configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
-            );
-        });
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(
+                    configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
+                );
+            });
 
-        services.AddScoped<IMovieRepository, MoviesRepository>();
-        services.AddScoped<IGenreRepository, GenreRepository>();
-        return services;
+            services.AddScoped<IMovieRepository, MoviesRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            return services;
+        }
     }
 }

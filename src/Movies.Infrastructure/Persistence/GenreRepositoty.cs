@@ -2,22 +2,16 @@ using Microsoft.EntityFrameworkCore;
 using Movies.Application.Interfaces;
 using Movies.Domain.Entities;
 
-namespace Movies.Infrastructure.Persistence;
-
-public class GenreRepository : IGenreRepository
+namespace Movies.Infrastructure.Persistence
 {
-    private readonly ApplicationDbContext _context;
-
-    public GenreRepository(ApplicationDbContext context)
+    public class GenreRepository(ApplicationDbContext context) : IGenreRepository
     {
-        _context = context;
-    }
-
-    public async Task<IReadOnlyCollection<Genre>> GetGenresAsync(CancellationToken cancellationToken)
-    {
-        return await _context.Genres
-            .AsNoTracking()
-            .OrderBy(x => x.Name)
-            .ToListAsync(cancellationToken);
+        public async Task<IReadOnlyCollection<Genre>> GetGenresAsync(CancellationToken cancellationToken)
+        {
+            return await context.Genres
+                .AsNoTracking()
+                .OrderBy(x => x.Name)
+                .ToListAsync(cancellationToken);
+        }
     }
 }

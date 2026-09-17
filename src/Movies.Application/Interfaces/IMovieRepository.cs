@@ -1,18 +1,19 @@
 using Movies.Domain.Entities;
 
-namespace Movies.Application.Interfaces;
-
-public interface IMovieRepository
+namespace Movies.Application.Interfaces
 {
-    Task<(IReadOnlyList<Movie>, int)> SearchAsync(
-        string? search,
-        int? genre,
-        string? sortBy,
-        bool descending,
-        int page,
-        int pageSize,
-        CancellationToken cancellationToken
-    );
+    public interface IMovieRepository
+    {
+        Task<(IReadOnlyList<Movie>, int)> SearchAsync(
+            string? search,
+            int? genre,
+            string? sortBy,
+            bool descending,
+            int page,
+            int pageSize,
+            CancellationToken cancellationToken
+        );
 
-    Task<Movie?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task<Movie?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    }
 }

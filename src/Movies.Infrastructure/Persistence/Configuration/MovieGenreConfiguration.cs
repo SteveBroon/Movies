@@ -2,24 +2,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Movies.Domain.Entities;
 
-namespace Movies.Infrastructure.Persistence.Configuration;
-
-public class MovieGenreConfiguration : IEntityTypeConfiguration<MovieGenre>
+namespace Movies.Infrastructure.Persistence.Configuration
 {
-    public void Configure(EntityTypeBuilder<MovieGenre> builder)
+    public class MovieGenreConfiguration : IEntityTypeConfiguration<MovieGenre>
     {
-        builder.HasKey(x => new
+        public void Configure(EntityTypeBuilder<MovieGenre> builder)
         {
-            x.MovieId,
-            x.GenreId
-        });
+            builder.HasKey(x => new
+            {
+                x.MovieId,
+                x.GenreId
+            });
 
-        builder.HasOne(x => x.Movie)
-            .WithMany(x => x.MovieGenres)
-            .HasForeignKey(x => x.MovieId);
+            builder.HasOne(x => x.Movie)
+                .WithMany(x => x.MovieGenres)
+                .HasForeignKey(x => x.MovieId);
 
-        builder.HasOne(x => x.Genre)
-            .WithMany(x => x.MovieGenres)
-            .HasForeignKey(x => x.GenreId);
+            builder.HasOne(x => x.Genre)
+                .WithMany(x => x.MovieGenres)
+                .HasForeignKey(x => x.GenreId);
+        }
     }
 }

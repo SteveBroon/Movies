@@ -1,8 +1,9 @@
 using Movies.Domain.Entities;
 
-namespace Movies.Application.Interfaces;
-
-public interface IGenreRepository
+namespace Movies.Application.Interfaces
 {
-     Task<IReadOnlyCollection<Genre>> GetGenresAsync(CancellationToken cancellationToken);
+    public interface IGenreRepository
+    {
+         Task<IReadOnlyCollection<Genre>> GetGenresAsync(CancellationToken cancellationToken);
+    }
 }
