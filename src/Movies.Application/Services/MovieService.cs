@@ -1,3 +1,4 @@
+using Movies.Application.Common;
 using Movies.Application.Interfaces;
 using Movies.Application.Responses.Movies;
 
@@ -12,11 +13,17 @@ public class MovieService : IMovieSevice
         MovieRepository = movieRepository;
     }
 
-    public async Task<IReadOnlyCollection<MovieSearchResponse>> GetMoviesAsync(MovieSearchRequest request, CancellationToken cancellationToken)
+    public async Task<PagedResult<MovieSearchResponse>> GetMoviesAsync(MovieSearchRequest request, CancellationToken cancellationToken)
     {
-        var movies = await MovieRepository.SearchAsync(request.Search, request.Genre, request.SortBy, request.Descending, request.Page, request.PageSize, cancellationToken);
+        var (movies, totalCount) = await MovieRepository.SearchAsync(request.Search, request.Genre, request.SortBy, request.Descending, request.Page, request.PageSize, cancellationToken);
 
-        return movies.Select(movie => MovieSearchResponse.FromEntity(movie)).ToList();
+        return new PagedResult<MovieSearchResponse>()
+        {
+            Items = movies.Select(movie => MovieSearchResponse.FromEntity(movie)).ToList(),
+            Page = request.Page,
+            PageSize = request.PageSize,
+            TotalCount = totalCount
+        };
     }
 
     public async Task<MovieSearchResponse?> GetMovieByIdAsync(Guid id, CancellationToken cancellationToken)

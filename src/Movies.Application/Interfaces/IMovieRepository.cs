@@ -4,7 +4,7 @@ namespace Movies.Application.Interfaces;
 
 public interface IMovieRepository
 {
-    Task<IReadOnlyList<Movie>> SearchAsync(
+    Task<(IReadOnlyList<Movie>, int)> SearchAsync(
         string? search,
         int? genre,
         string? sortBy,

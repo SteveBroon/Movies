@@ -1,3 +1,4 @@
+using Movies.Api.MIddleware;
 using Movies.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,7 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

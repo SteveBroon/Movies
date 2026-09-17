@@ -12,7 +12,7 @@ public class MoviesRepository : IMovieRepository
         _context = context;
     }
 
-    public async Task<IReadOnlyList<Movie>> SearchAsync(
+    public async Task<(IReadOnlyList<Movie>, int)> SearchAsync(
         string? search,
         int? genre,
         string? sortBy,
@@ -52,10 +52,16 @@ public class MoviesRepository : IMovieRepository
             _ => query.OrderBy(movie => movie.Title)
         };
 
-        return await query
+        // Get total count before pagination
+        var totalCount = await query.CountAsync(
+            cancellationToken);
+
+        var result = await query
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync(cancellationToken);
+
+        return (result, totalCount);
     }
 
     public async Task<Movie?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
