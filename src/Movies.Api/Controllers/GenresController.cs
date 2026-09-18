@@ -9,7 +9,7 @@ namespace Movies.Api.Controllers
     public class GenresController(IGenreSevice genreSevice) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyCollection<GenreResonse>>> GetAll(CancellationToken cancellationToken)
+        public async Task<ActionResult<IReadOnlyCollection<GenreResponse>>> GetAll(CancellationToken cancellationToken)
         {
             return Ok(await genreSevice.GetGenresAsync(cancellationToken));
         }

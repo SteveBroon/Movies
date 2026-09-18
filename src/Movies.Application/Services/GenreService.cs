@@ -7,11 +7,11 @@ namespace Movies.Application.Services
     {
         public IGenreRepository GenreRepository { get; } = genreRepository;
 
-        public async Task<IReadOnlyCollection<GenreResonse>> GetGenresAsync(CancellationToken cancellationToken)
+        public async Task<IReadOnlyCollection<GenreResponse>> GetGenresAsync(CancellationToken cancellationToken)
         {
             var genres = await GenreRepository.GetGenresAsync(cancellationToken).ConfigureAwait(false);
 
-            return genres.Select(genre => GenreResonse.FromEntity(genre)).ToList();
+            return genres.Select(genre => GenreResponse.FromEntity(genre)).ToList();
         }
     }
 }

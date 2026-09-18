@@ -4,6 +4,6 @@ namespace Movies.Application.Interfaces
 {
     public interface IGenreSevice
     {
-        Task<IReadOnlyCollection<GenreResonse>> GetGenresAsync(CancellationToken cancellationToken);
+        Task<IReadOnlyCollection<GenreResponse>> GetGenresAsync(CancellationToken cancellationToken);
     }
 }

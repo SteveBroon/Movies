@@ -9,7 +9,7 @@ namespace Movies.Infrastructure
         public static IServiceCollection AddServices(
             this IServiceCollection services)
         {
-            services.AddScoped<IMovieSevice, MovieService>();
+            services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IGenreSevice, GenreService>();
 
             return services;

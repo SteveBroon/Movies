@@ -2,15 +2,15 @@ using Movies.Domain.Entities;
 
 namespace Movies.Application.Responses.Genres
 {
-    public record GenreResonse
+    public record GenreResponse
     (
         int Id,
         string Name
     )
     {
-        public static GenreResonse FromEntity(Genre genre)
+        public static GenreResponse FromEntity(Genre genre)
         {
-            return new GenreResonse(
+            return new GenreResponse(
                 genre.Id,
                 genre.Name
             );

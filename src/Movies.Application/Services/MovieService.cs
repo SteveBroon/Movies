@@ -4,7 +4,7 @@ using Movies.Application.Responses.Movies;
 
 namespace Movies.Application.Services
 {
-    public class MovieService(IMovieRepository movieRepository) : IMovieSevice
+    public class MovieService(IMovieRepository movieRepository) : IMovieService
     {
         public IMovieRepository MovieRepository { get; } = movieRepository;
 

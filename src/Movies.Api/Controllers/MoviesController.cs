@@ -5,7 +5,7 @@ namespace Movies.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MoviesController(IMovieSevice movieService) : ControllerBase
+    public class MoviesController(IMovieService movieService) : ControllerBase
     {
         [HttpGet]
         public async Task<ActionResult> GetMovies(
